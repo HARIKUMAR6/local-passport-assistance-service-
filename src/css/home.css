@@ -1,0 +1,108 @@
+/* ==========================================================================
+   Home pages (index.html, home-2.html) — photographic section patterns.
+   Shared primitives live in components.css; only page patterns live here.
+   ========================================================================== */
+
+@layer components {
+  @keyframes fade-up { from { opacity: 0; translate: 0 0.75rem; } to { opacity: 1; translate: 0 0; } }
+
+  /* ---- Photo frames ------------------------------------------------------ */
+  .photo { position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-lg); background-color: var(--color-navy-800); box-shadow: var(--shadow-raised); }
+  .photo > img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; transition: scale 900ms var(--ease-out-soft); }
+  @media (hover: hover) { .photo:hover > img, a:hover > .photo > img { scale: 1.04; } }
+  /* Heights tied to the shared hero system so a hero photo never stretches the hero */
+  .hero-photo { block-size: 10rem; }
+  @media (min-width: 48rem) { .hero-photo { block-size: calc(var(--hero-h) - 2 * var(--hero-pad)); } }
+
+  /* Directional navy scrims over photos (flip in RTL) */
+  .scrim-start { background: linear-gradient(90deg, rgb(6 23 48 / 0.96) 0%, rgb(6 23 48 / 0.84) 48%, rgb(6 23 48 / 0.3) 100%); }
+  [dir="rtl"] .scrim-start { background: linear-gradient(270deg, rgb(6 23 48 / 0.96) 0%, rgb(6 23 48 / 0.84) 48%, rgb(6 23 48 / 0.3) 100%); }
+  .scrim-flat { background: linear-gradient(180deg, rgb(6 23 48 / 0.78), rgb(6 23 48 / 0.62) 50%, rgb(6 23 48 / 0.88)); }
+  .scrim-bottom { background: linear-gradient(180deg, transparent 20%, rgb(6 23 48 / 0.92) 100%); }
+  .glass-dark { border: 1px solid rgb(255 255 255 / 0.16); border-radius: var(--radius-md); background-color: rgb(6 23 48 / 0.72); backdrop-filter: blur(10px); color: var(--color-paper-100); }
+  .glass { border: 1px solid rgb(255 255 255 / 0.14); border-radius: var(--radius-md); background-color: rgb(255 255 255 / 0.07); backdrop-filter: blur(8px); }
+
+  .trust-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.25rem; }
+  .trust-list li { display: inline-flex; align-items: center; gap: 0.5rem; font-size: var(--text-sm); font-weight: 500; color: var(--ink-muted); }
+  .trust-list .icon { inline-size: 1.125rem; block-size: 1.125rem; color: var(--accent); }
+  @media (min-width: 40rem) { .trust-list { justify-content: flex-start; } }
+
+  /* ---- Stats & numbered features ---------------------------------------- */
+  .stat { display: grid; gap: 0.125rem; }
+  .stat__num { font-family: var(--font-display); font-size: var(--text-h3); font-weight: 600; line-height: 1.1; color: var(--ink); }
+  .stat__label { font-size: var(--text-xs); color: var(--ink-muted); }
+  .num-list { display: grid; }
+  .num-list li { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding-block: 1.25rem; border-block-start: 1px solid var(--line); }
+  .num-list li:last-child { border-block-end: 1px solid var(--line); }
+  .num-list__n { font-family: var(--font-display); font-size: var(--text-h4); font-weight: 600; color: var(--highlight-ink); line-height: 1.2; }
+
+  /* ---- Home 1: overlapping step cards ----------------------------------- */
+  .step-card { position: relative; padding: 1.5rem; border: 1px solid var(--line); border-radius: var(--radius-md); background-color: var(--surface); box-shadow: var(--shadow-soft); transition: translate var(--dur-base) var(--ease-out-soft), box-shadow var(--dur-base) ease, border-color var(--dur-fast) ease; }
+  .step-card:hover { translate: 0 -4px; border-color: var(--highlight); box-shadow: var(--shadow-raised); }
+  .step-card__n { display: inline-grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; margin-block-end: 1rem; border-radius: 999px; background-color: var(--primary); color: var(--on-primary); font-family: var(--font-display); font-weight: 600; }
+
+  /* ---- Service rows (Home 1) -------------------------------------------- */
+  .svc-row { display: grid; grid-template-columns: 3rem 1fr auto; align-items: center; gap: 1rem; padding: 1.25rem 1rem; border-block-start: 1px solid var(--line); color: inherit; text-decoration: none; border-radius: var(--radius-sm); transition: background-color var(--dur-fast) ease, padding var(--dur-base) var(--ease-out-soft); }
+  .svc-row:hover { background-color: var(--surface-2); padding-inline: 1.5rem; }
+  .svc-row:focus-visible { outline-offset: -2px; }
+  .svc-row .icon { color: var(--accent); transition: translate var(--dur-base) var(--ease-out-soft); }
+  .svc-row:hover .icon { translate: 0.25rem 0; }
+  [dir="rtl"] .svc-row:hover .icon { translate: -0.25rem 0; }
+  .svc-list li:last-child .svc-row { border-block-end: 1px solid var(--line); }
+
+  /* ---- Service photo cards (Home 2) ------------------------------------- */
+  .svc-card { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-block-size: 22rem; overflow: hidden; border-radius: var(--radius-lg); color: #fff; text-decoration: none; box-shadow: var(--shadow-soft); }
+  .svc-card > img { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; object-fit: cover; transition: scale 900ms var(--ease-out-soft); }
+  .svc-card::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(6 23 48 / 0.05) 0%, rgb(6 23 48 / 0.55) 45%, rgb(6 23 48 / 0.96) 100%); }
+  .svc-card:hover > img { scale: 1.06; }
+  .svc-card__body { padding: 1.5rem; }
+  .svc-card h3 { color: #fff; }
+  .svc-card .link-arrow { color: var(--color-gold-300); }
+
+  /* ---- Stepper tabs (Home 2) -------------------------------------------- */
+  [role="tabpanel"]:not([hidden]) { animation: fade-up var(--dur-base) var(--ease-out-soft); }
+  .step-tab { display: flex; align-items: center; gap: 0.75rem; min-block-size: 3.5rem; padding: 0.5rem 1rem; border: 1px solid var(--line); border-radius: var(--radius-md); background-color: var(--surface); color: var(--ink); font-size: var(--text-sm); font-weight: 600; text-align: start; cursor: pointer; transition: background-color var(--dur-fast) ease, border-color var(--dur-fast) ease, color var(--dur-fast) ease; }
+  .step-tab:hover { border-color: var(--line-strong); }
+  .step-tab__n { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; flex: none; border-radius: 999px; background-color: var(--surface-2); font-family: var(--font-display); font-size: var(--text-sm); }
+  .step-tab[aria-selected="true"] { background-color: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+  .step-tab[aria-selected="true"] .step-tab__n { background-color: var(--highlight); color: var(--color-navy-950); }
+
+  .check-list { display: grid; gap: 0.625rem; }
+  .check-list li { display: flex; gap: 0.625rem; align-items: flex-start; font-size: var(--text-sm); }
+  .check-list .icon { inline-size: 1.125rem; block-size: 1.125rem; margin-block-start: 0.2rem; color: var(--accent); }
+
+  /* ---- Countries --------------------------------------------------------- */
+  .country { display: flex; align-items: center; gap: 0.625rem; padding: 0.5rem 0.75rem; border: 1px solid rgb(255 255 255 / 0.16); border-radius: var(--radius-sm); background-color: rgb(6 23 48 / 0.7); color: var(--color-paper-100); font-size: var(--text-sm); animation: fade-up var(--dur-base) var(--ease-out-soft); transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease; }
+  .country:hover { border-color: var(--color-gold-300); background-color: rgb(6 23 48 / 0.92); }
+  .country__code { display: grid; place-items: center; inline-size: 2rem; block-size: 1.5rem; border-radius: var(--radius-xs); background-color: var(--color-gold-300); color: var(--color-navy-950); font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.04em; }
+  .region-block { padding: 1.25rem; border: 1px solid var(--line); border-block-start: 3px solid var(--region, var(--accent)); border-radius: var(--radius-md); background-color: var(--surface); box-shadow: var(--shadow-soft); }
+
+  /* ---- Checklist + progress --------------------------------------------- */
+  .progress { block-size: 0.5rem; overflow: hidden; border-radius: 999px; background-color: var(--surface-2); }
+  .progress > span { display: block; block-size: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--highlight)); transition: inline-size var(--dur-slow) var(--ease-out-soft); }
+  .todo { display: flex; align-items: center; gap: 0.75rem; min-block-size: 2.75rem; padding: 0.375rem 0.75rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background-color: var(--surface); font-size: var(--text-sm); cursor: pointer; transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease; }
+  .todo:hover { border-color: var(--line-strong); }
+  .todo:has(input:checked) { background-color: var(--success-bg); border-color: transparent; }
+  .todo:has(input:checked) span { text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--ink) 40%, transparent); color: var(--ink-muted); }
+  .todo input { inline-size: 1.25rem; block-size: 1.25rem; flex: none; accent-color: var(--accent); }
+  .todo:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* ---- Client-portal mock (live UI, not artwork) ------------------------ */
+  .portal { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-md); background-color: var(--surface); box-shadow: var(--shadow-soft); }
+  .portal__bar { display: flex; align-items: center; gap: 0.375rem; padding: 0.625rem 1rem; border-block-end: 1px solid var(--line); background-color: var(--surface-2); }
+  .portal__bar i { inline-size: 0.625rem; block-size: 0.625rem; border-radius: 999px; background-color: var(--line-strong); opacity: 0.6; }
+  .portal__row { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.625rem 0.75rem; border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: var(--text-sm); }
+  .mini-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.375rem; }
+  .mini-steps li { display: grid; gap: 0.375rem; font-size: var(--text-xs); color: var(--ink-muted); }
+  .mini-steps li::before { content: ""; block-size: 0.375rem; border-radius: 999px; background-color: var(--line); }
+  .mini-steps li.is-done::before { background-color: var(--accent); }
+  .mini-steps li.is-now::before { background: linear-gradient(90deg, var(--accent) 55%, var(--line) 55%); }
+  .mini-steps li.is-done, .mini-steps li.is-now { color: var(--ink); font-weight: 600; }
+
+  /* ---- Contact lines on dark panels ------------------------------------- */
+  .contact-line { display: flex; align-items: center; gap: 0.75rem; color: var(--color-paper-100); text-decoration: none; overflow-wrap: anywhere; font-size: var(--text-sm); }
+  .contact-line .icon { color: var(--color-gold-300); }
+  a.contact-line:hover { color: #fff; text-decoration: underline; text-underline-offset: 0.25em; }
+
+  @media (min-width: 64rem) { .sticky-col { position: sticky; inset-block-start: calc(var(--header-h) + 1.5rem); } }
+}

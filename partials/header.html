@@ -1,0 +1,49 @@
+<header class="site-header" data-header>
+  <div class="container-page is-wide site-header__bar">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-logo"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">Meridian Passage</span>
+        <span class="brand-sub">Passport Assistance</span>
+      </span>
+    </a>
+
+    <button type="button" class="btn btn-icon menu-toggle" data-nav-toggle aria-controls="site-menu" aria-expanded="false" aria-label="Open menu">
+      <svg class="icon icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+      <svg class="icon icon-close" aria-hidden="true"><use href="#i-close"/></svg>
+    </button>
+
+    <div class="site-menu" id="site-menu">
+      <nav class="site-nav" aria-label="Primary">
+        <ul class="site-nav__list">
+          <li data-dropdown>
+            <button type="button" class="nav-link" data-dropdown-toggle aria-expanded="false" aria-controls="menu-home" data-group="index.html home-2.html">
+              Home
+              <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </button>
+            <div class="submenu" id="menu-home">
+              <ul>
+                <li><a class="submenu-link" href="index.html">Home 1</a></li>
+                <li><a class="submenu-link" href="home-2.html">Home 2</a></li>
+              </ul>
+            </div>
+          </li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="services.html">Services</a></li>
+          <li><a class="nav-link" href="documents-checklist.html">Documents Checklist</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+          <li><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-actions">
+        <button type="button" class="btn btn-cta btn-ctl" data-theme-toggle aria-label="Switch theme">
+          <svg class="icon if-light" aria-hidden="true"><use href="#i-moon"/></svg>
+          <svg class="icon if-dark" aria-hidden="true"><use href="#i-sun"/></svg>
+        </button>
+        <button type="button" class="btn btn-cta btn-ctl" data-dir-toggle aria-label="Switch layout direction"><span class="if-ltr">RTL</span><span class="if-rtl">LTR</span></button>
+        <a class="btn btn-cta btn-ctl" href="login.html">Login</a>
+      </div>
+    </div>
+  </div>
+</header>

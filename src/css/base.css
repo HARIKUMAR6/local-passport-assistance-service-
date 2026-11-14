@@ -1,0 +1,74 @@
+/* ==========================================================================
+   Base — element defaults on top of Tailwind Preflight.
+   Uses logical properties so LTR and RTL both work without overrides.
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-block-start: calc(var(--header-h) + 1rem);
+  }
+
+  body {
+    min-block-size: 100dvh;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: var(--text-h1); line-height: var(--text-h1--line-height); }
+  h2 { font-size: var(--text-h2); line-height: var(--text-h2--line-height); }
+  h3 { font-size: var(--text-h3); line-height: var(--text-h3--line-height); }
+  h4 { font-size: var(--text-h4); line-height: var(--text-h4--line-height); }
+
+  p { text-wrap: pretty; }
+
+  /* English-only content in an RTL layout: resolve each text run's own bidi
+     direction so punctuation and numbers stay in place ("40+ countries.").
+     `plaintext` makes `text-align: start` resolve as left (the English run's
+     direction), so RTL sets the inherited alignment to `right` explicitly.
+     Centred blocks keep their own `text-align: center`. In RTL pages, avoid
+     the `text-start` utility; use `rtl:text-right` / `ltr:text-left`. */
+  [dir="rtl"] :is(p, address, h1, h2, h3, h4, li, summary, label, span, a, button, strong, dt, dd) { unicode-bidi: plaintext; }
+  [dir="rtl"] body { text-align: right; }
+
+  a { color: inherit; text-underline-offset: 0.2em; }
+
+  img, svg, video { max-inline-size: 100%; block-size: auto; }
+
+  ::selection { background-color: var(--color-teal-200); color: var(--color-navy-950); }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  [hidden] { display: none !important; }
+
+  /* Smooth scrolling only when the user has not asked for reduced motion */
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

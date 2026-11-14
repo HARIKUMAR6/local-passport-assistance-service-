@@ -1,0 +1,22 @@
+/* ==========================================================================
+   Meridian Passage — Tailwind CSS v4 entry
+   Build: npm run build  ->  public/css/app.css (minified)
+   ========================================================================== */
+
+@import "tailwindcss" source(none);
+
+/* Scan only the files that can contain class names. */
+@source "../../*.html";
+@source "../../partials/**/*.html";
+@source "../js/**/*.js";
+
+/* Class-based dark mode driven by <html data-theme="dark"> (set by theme.js). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@import "./tokens.css";
+@import "./base.css";
+@import "./components.css";
+@import "./site-chrome.css";
+@import "./home.css";
+@import "./inner.css";
+@import "./portal.css";
