@@ -1,8 +1,7 @@
-// Client portal dashboard. Front end only: files are previewed in the browser
-// and never stored or sent, appointment requests are not booked anywhere, and
-// activity lives in memory for the current visit.
-import { store } from "./utils.js";
-
+// Client portal dashboard. Account data, applications, appointments and
+// uploads are not connected to any service yet, so every list starts empty,
+// files are only previewed in the browser, and requests report that they
+// cannot be submitted.
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -21,42 +20,24 @@ function toast(msg, kind = "success") {
 }
 
 /* ---- Activity ------------------------------------------------------------- */
-const activity = [
-  { text: "Identity documents verified", icon: "i-check", tone: "is-success", when: "Nov 8, 2026 · 10:42" },
-  { text: "Daniel Reyes left a note: “Photo needs a plain white background.”", icon: "i-message", when: "Nov 7, 2026 · 16:05" },
-  { text: "Proof of address uploaded", icon: "i-upload", when: "Nov 5, 2026 · 09:18" },
-  { text: "Application received", icon: "i-file-check", when: "Nov 3, 2026 · 14:30" },
-];
+const activity = [];
+const emptyActivity = `<li class="empty empty--pad">${icon("i-activity")}<p><strong>No activity yet</strong></p><p>Updates on your application will appear here.</p></li>`;
 function activityHtml(items, fresh = -1) {
-  return items.map((a, i) => `<li class="activity__item ${i === fresh ? "is-new" : ""}"><span class="activity__dot ${a.tone || ""}">${icon(a.icon)}</span><div><p>${esc(a.text)}</p><time>${esc(a.when)}</time></div></li>`).join("");
+  if (!items.length) return emptyActivity;
+  return items.map((a, i) => `<li class="activity__item ${i === fresh ? "is-new" : ""}"><span class="activity__dot">${icon(a.icon)}</span><div><p>${esc(a.text)}</p><time>${esc(a.when)}</time></div></li>`).join("");
 }
 function renderActivity(fresh = -1) {
   $("[data-activity]").innerHTML = activityHtml(activity, fresh);
   $("[data-activity-recent]").innerHTML = activityHtml(activity.slice(0, 4), fresh);
 }
-function logActivity(text, iconId = "i-activity", tone = "") {
+function logActivity(text, iconId = "i-activity") {
   const d = new Date();
   const when = `${d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })} · ${d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`;
-  activity.unshift({ text, icon: iconId, tone, when });
+  activity.unshift({ text, icon: iconId, when });
   renderActivity(0);
 }
 
-/* ---- Notifications & popovers -------------------------------------------- */
-const notes = [
-  { text: "Your advisor left a note about your passport photo.", when: "Nov 7", unread: true },
-  { text: "Identity documents were verified.", when: "Nov 8", unread: true },
-  { text: "3 documents are still needed to continue.", when: "Today", unread: true },
-];
-function renderNotes() {
-  $("[data-notify-list]").innerHTML = notes.map((n) => `<li class="${n.unread ? "is-unread" : ""}"><p>${esc(n.text)}</p><time>${esc(n.when)}</time></li>`).join("");
-  const c = notes.filter((n) => n.unread).length;
-  const badge = $("[data-notify-count]");
-  badge.textContent = c;
-  badge.hidden = !c;
-  badge.closest("button").setAttribute("aria-label", c ? `Notifications, ${c} unread` : "Notifications");
-}
-$("[data-notify-read]").addEventListener("click", () => { notes.forEach((n) => (n.unread = false)); renderNotes(); });
-
+/* ---- Popovers ------------------------------------------------------------- */
 function closePops(except) {
   $$("[data-pop]").forEach((b) => {
     if (b === except) return;
@@ -85,36 +66,16 @@ document.addEventListener("keydown", (e) => {
 
 /* ---- Dialogs -------------------------------------------------------------- */
 document.addEventListener("click", (e) => {
-  const open = e.target.closest("[data-open]");
-  if (open) {
-    const d = document.getElementById(open.dataset.open);
-    const pop = open.closest(".pop");
-    d._opener = pop ? $(`[data-pop="${pop.id}"]`) : open;
-    if (d.id === "dlg-profile") fillProfileForm();
-    closeSidebar();
-    d.showModal();
-    return;
-  }
   if (e.target.closest("[data-close]")) e.target.closest("dialog").close();
   else if (e.target.matches("dialog.dlg")) e.target.close();
 });
 $$("dialog.dlg").forEach((d) => d.addEventListener("close", () => d._opener?.focus()));
 
-/* ---- Profile -------------------------------------------------------------- */
-const USER_KEY = "mp-user";
-const user = { name: "Amelia Hart", email: "amelia.hart@example.com", phone: "+1 (555) 014-3382" };
-try { Object.assign(user, JSON.parse(store.get(USER_KEY) || "{}")); } catch { /* keep defaults */ }
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("[data-signout]")) return;
+  location.href = "login.html";
+});
 
-function renderUser() {
-  const parts = user.name.trim().split(/\s+/);
-  const h = new Date().getHours();
-  $("[data-greeting]").textContent = h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
-  $("[data-user-first]").textContent = parts[0] || "there";
-  $$("[data-user-name]").forEach((el) => (el.textContent = user.name));
-  $$("[data-user-email]").forEach((el) => (el.textContent = user.email));
-  $$("[data-user-phone]").forEach((el) => (el.textContent = user.phone));
-  $$("[data-avatar]").forEach((el) => (el.textContent = parts.slice(0, 2).map((p) => p[0]?.toUpperCase() || "").join("") || "?"));
-}
 function fieldError(input, msg) {
   const w = input.closest(".field");
   w.classList.toggle("has-error", !!msg);
@@ -122,33 +83,10 @@ function fieldError(input, msg) {
   if (msg) input.setAttribute("aria-invalid", "true"); else input.removeAttribute("aria-invalid");
   return msg;
 }
-function fillProfileForm() {
-  const f = $("[data-profile-form]");
-  f.elements.name.value = user.name;
-  f.elements.phone.value = user.phone;
-  [f.elements.name, f.elements.phone].forEach((i) => fieldError(i, ""));
-}
-$("[data-profile-form]").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const f = e.currentTarget;
-  const bad = [
-    fieldError(f.elements.name, f.elements.name.value.trim().length < 2 ? "Please enter your full name." : ""),
-    fieldError(f.elements.phone, /^[+()\d\s.-]{7,20}$/.test(f.elements.phone.value.trim()) ? "" : "Enter a valid phone number."),
-  ].some(Boolean);
-  if (bad) { $("[aria-invalid]", f)?.focus(); return; }
-  user.name = f.elements.name.value.trim();
-  user.phone = f.elements.phone.value.trim();
-  store.set(USER_KEY, JSON.stringify(user));
-  renderUser();
-  f.closest("dialog").close();
-  logActivity("Profile details updated", "i-edit");
-  toast("Profile updated.");
-});
-document.addEventListener("click", (e) => {
-  if (!e.target.closest("[data-signout]")) return;
-  store.set(USER_KEY, "");
-  location.href = "login.html";
-});
+
+/* ---- Greeting ------------------------------------------------------------- */
+const h = new Date().getHours();
+$("[data-greeting]").textContent = h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
 
 /* ---- Views, sidebar ------------------------------------------------------- */
 const titles = { overview: "Overview", application: "Application", documents: "Documents", appointments: "Appointments", activity: "Activity", support: "Help & support" };
@@ -195,23 +133,20 @@ document.addEventListener("click", (e) => {
 });
 window.addEventListener("popstate", () => showView(location.hash.slice(1), false));
 
-/* ---- Progress tracker ----------------------------------------------------- */
+/* ---- Process steps -------------------------------------------------------- */
 const steps = [
-  { name: "Application received", date: "Nov 3", text: "We received your renewal request and opened your file on Nov 3." },
-  { name: "Document review", date: "Nov 8", text: "Your identity documents were checked and verified on Nov 8." },
-  { name: "Advisor check", date: "In progress", text: "Daniel is reviewing your complete file for accuracy. Outstanding documents may slow this step." },
-  { name: "Appointment", date: "Upcoming", text: "Once your documents are ready we will help you secure an appointment slot." },
-  { name: "Final submission", date: "Upcoming", text: "We submit your finished application and share tracking details with you." },
+  { name: "Consultation", text: "We discuss your situation and what you need." },
+  { name: "Document review", text: "We check your documents against current requirements." },
+  { name: "Preparation", text: "Forms are completed accurately and reviewed with you." },
+  { name: "Appointment", text: "We help you find and prepare for your appointment." },
+  { name: "Submission", text: "Your application is submitted and followed up." },
 ];
-const CURRENT = 2;
-let selected = CURRENT;
+let selected = 0;
 function renderTrackers() {
   $$("[data-tracker]").forEach((ol) => {
     ol.innerHTML = steps.map((s, i) => {
-      const state = i < CURRENT ? "is-done" : i === CURRENT ? "is-current" : "";
-      const dot = i < CURRENT ? icon("i-check") : `<span>${i + 1}</span>`;
       const pressed = ol.dataset.tracker === "full" ? ` aria-pressed="${i === selected}"` : "";
-      return `<li class="stepper__item ${state}"><button type="button" class="stepper__step" data-step="${i}"${pressed}${i === CURRENT ? ' aria-current="step"' : ""}><span class="stepper__dot">${dot}</span><span class="stepper__name">${esc(s.name)}</span><span class="stepper__date">${esc(s.date)}</span></button></li>`;
+      return `<li class="stepper__item"><button type="button" class="stepper__step" data-step="${i}"${pressed}><span class="stepper__dot"><span>${i + 1}</span></span><span class="stepper__name">${esc(s.name)}</span></button></li>`;
     }).join("");
   });
   const s = steps[selected];
@@ -220,28 +155,27 @@ function renderTrackers() {
 document.addEventListener("click", (e) => {
   const b = e.target.closest("[data-step]");
   if (!b) return;
+  const compact = !!b.closest("[data-tracker='compact']");
   selected = +b.dataset.step;
   renderTrackers();
-  if (b.closest("[data-tracker='compact']")) showView("application");
+  if (compact) showView("application");
 });
 
 /* ---- Documents ------------------------------------------------------------ */
 const MAX = 5 * 1024 * 1024;
 const OK = ["image/jpeg", "image/png", "application/pdf"];
 const docs = [
-  { id: "passport", name: "Current passport (photo page)", hint: "Clear colour scan, all four corners visible", status: "verified" },
-  { id: "id", name: "Government-issued photo ID", hint: "Driver licence or national ID card", status: "verified" },
-  { id: "address", name: "Proof of address", hint: "Utility bill or bank statement from the last 3 months", status: "review" },
-  { id: "photo", name: "Passport photo", hint: "2 × 2 in, plain white background, taken in the last 6 months", status: "needed" },
-  { id: "form", name: "Signed application form", hint: "Signed and dated on the final page", status: "needed" },
-  { id: "payment", name: "Payment receipt", hint: "Receipt for the government processing fee", status: "needed" },
-];
+  { id: "passport", name: "Current passport (photo page)", hint: "Clear colour scan, all four corners visible" },
+  { id: "id", name: "Government-issued photo ID", hint: "Driver licence or national ID card" },
+  { id: "address", name: "Proof of address", hint: "Utility bill or bank statement from the last 3 months" },
+  { id: "photo", name: "Passport photo", hint: "Plain white background, taken in the last 6 months" },
+  { id: "form", name: "Signed application form", hint: "Signed and dated on the final page" },
+  { id: "payment", name: "Payment receipt", hint: "Receipt for the government processing fee" },
+].map((d) => ({ ...d, status: "needed" }));
 const labels = {
-  verified: ["badge-success", "Verified"],
-  review: ["badge-info", "In review"],
-  needed: ["badge-warning", "Needed"],
-  uploading: ["badge-info", "Uploading…"],
-  uploaded: ["badge-info", "Uploaded · in review"],
+  needed: ["badge-warning", "Required"],
+  loading: ["badge-info", "Loading…"],
+  selected: ["badge-success", "Selected"],
 };
 const list = $("[data-doc-list]");
 const input = $("[data-file-input]");
@@ -257,12 +191,10 @@ function renderDocs() {
       : `<p class="doc__hint">${esc(d.hint)}</p>`;
     const actions = d.file
       ? `<button type="button" class="btn btn-sm" data-doc-view="${d.id}">${icon("i-eye")}View</button><button type="button" class="btn btn-sm btn-ghost" data-doc-remove="${d.id}" aria-label="Remove ${esc(d.name)}">${icon("i-trash")}</button>`
-      : d.status === "needed"
-        ? `<button type="button" class="btn btn-sm btn-primary" data-doc-upload="${d.id}">${icon("i-upload")}Upload</button>`
-        : "";
+      : `<button type="button" class="btn btn-sm btn-primary" data-doc-upload="${d.id}">${icon("i-upload")}Choose file</button>`;
     return `<li class="doc ${d.status === "needed" ? "is-needed" : ""}" data-doc="${d.id}">
       <span class="doc__icon">${icon(d.status === "needed" ? "i-upload" : "i-file-check")}</span>
-      <div class="doc__main"><p class="doc__name">${esc(d.name)}</p>${file}${d.status === "uploading" ? `<div class="progress doc__bar"><span style="inline-size:${d.pct || 0}%"></span></div>` : ""}</div>
+      <div class="doc__main"><p class="doc__name">${esc(d.name)}</p>${file}${d.status === "loading" ? `<div class="progress doc__bar"><span style="inline-size:${d.pct || 0}%"></span></div>` : ""}</div>
       <span class="badge ${cls}">${txt}</span>
       <div class="doc__actions">${actions}</div>
     </li>`;
@@ -270,23 +202,16 @@ function renderDocs() {
 
   const needed = docs.filter((d) => d.status === "needed");
   $("[data-doc-mini]").innerHTML = needed.length
-    ? needed.map((d) => `<li><span>${esc(d.name)}</span><button type="button" class="btn btn-sm" data-doc-upload="${d.id}">${icon("i-upload")}Upload</button></li>`).join("")
-    : `<li class="mini-done">${icon("i-check")}<span>Everything has been received.</span></li>`;
+    ? needed.map((d) => `<li><span>${esc(d.name)}</span><button type="button" class="btn btn-sm" data-doc-upload="${d.id}">${icon("i-upload")}Choose file</button></li>`).join("")
+    : `<li class="mini-done">${icon("i-check")}<span>All documents selected.</span></li>`;
 
   const ready = docs.length - needed.length;
   $$("[data-doc-count]").forEach((el) => (el.textContent = ready));
   $$("[data-doc-total]").forEach((el) => (el.textContent = docs.length));
-  $("[data-doc-note]").textContent = needed.length ? `${needed.length} still needed` : "All received";
+  $("[data-doc-note]").textContent = needed.length ? `${needed.length} to add` : "All added";
   const nb = $("[data-nav-badge='documents']");
   nb.textContent = needed.length;
   nb.hidden = !needed.length;
-
-  const pct = Math.round(40 + (ready / docs.length) * 20);
-  $$("[data-progress-pct]").forEach((el) => (el.textContent = `${pct}%`));
-  const bar = $("[data-progress-bar]");
-  bar.setAttribute("aria-valuenow", pct);
-  $("span", bar).style.inlineSize = `${pct}%`;
-  $("[data-progress-fill]").style.inlineSize = `${pct}%`;
 }
 
 function validate(file) {
@@ -302,21 +227,21 @@ async function attach(doc, file) {
   if (doc.url) URL.revokeObjectURL(doc.url);
   doc.file = file;
   doc.url = URL.createObjectURL(file);
-  doc.status = "uploading";
+  doc.status = "loading";
   doc.pct = 0;
   showPreview(doc);
   renderDocs();
-  for (const p of [18, 41, 67, 88, 100]) {
-    await wait(180);
-    if (doc.status !== "uploading") return;
+  for (const p of [25, 55, 85, 100]) {
+    await wait(140);
+    if (doc.status !== "loading") return;
     doc.pct = p;
     const bar = $(`[data-doc="${doc.id}"] .doc__bar span`);
     if (bar) bar.style.inlineSize = `${p}%`;
   }
-  doc.status = "uploaded";
+  doc.status = "selected";
   renderDocs();
-  logActivity(`${doc.name} added`, "i-upload");
-  toast(`${doc.name} added.`);
+  logActivity(`Selected ${doc.name}`, "i-file");
+  toast("File selected.");
 }
 
 function removeDoc(doc) {
@@ -325,8 +250,6 @@ function removeDoc(doc) {
   doc.status = "needed";
   if (current === doc) showPreview(null);
   renderDocs();
-  logActivity(`${doc.name} removed`, "i-trash");
-  toast(`${doc.name} removed.`);
 }
 
 function showPreview(doc) {
@@ -380,13 +303,13 @@ list.addEventListener("drop", (e) => {
   const doc = row && docs.find((d) => d.id === row.dataset.doc);
   const f = e.dataTransfer.files[0];
   if (!doc || !f) return;
-  if (doc.status !== "needed") { toast(`${doc.name} has already been received.`, "error"); return; }
+  if (doc.status !== "needed") { toast(`${doc.name} already has a file selected.`, "error"); return; }
   attach(doc, f);
 });
 $("[data-preview-open]").addEventListener("click", () => current && openLarge(current));
 $("[data-preview-clear]").addEventListener("click", () => current && removeDoc(current));
 
-/* ---- Appointment request -------------------------------------------------- */
+/* ---- Appointment help request --------------------------------------------- */
 const form = $("[data-appt-form]");
 const dateInput = form.elements.date;
 const iso = (d) => d.toISOString().slice(0, 10);
@@ -424,69 +347,23 @@ function summarise(errs) {
   }));
 }
 
-let request = null;
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  const unavailable = $("[data-appt-unavailable]");
+  unavailable.hidden = true;
   const errs = ["type", "location", "date"].map((n) => form.elements[n]).map((f) => ({ f, m: apptCheck(f) })).filter((x) => x.m);
   summarise(errs);
   if (errs.length) { errs[0].f.focus(); return; }
   const btn = $("[data-appt-submit]");
   btn.disabled = true; btn.classList.add("is-busy");
-  await wait(1000);
+  await wait(600);
   btn.disabled = false; btn.classList.remove("is-busy");
-  const d = new Date(form.elements.date.value + "T12:00:00");
-  request = {
-    ref: `AP-${Math.floor(1000 + Math.random() * 9000)}`,
-    type: form.elements.type.value,
-    location: form.elements.location.value,
-    when: `${d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}, ${form.elements.time.value.toLowerCase()}`,
-    notes: form.elements.notes.value.trim(),
-  };
-  renderRequest();
-  logActivity(`Appointment help requested (${request.ref})`, "i-calendar");
-  toast("Request sent. Your advisor will follow up within one business day.");
-});
-
-const emptyAppt = `<div class="empty">${icon("i-calendar")}<p><strong>No request yet</strong></p><p>Tell us when suits you and an advisor will help.</p></div>`;
-function renderRequest() {
-  $("[data-appt-value]").textContent = request ? "Requested" : "Not requested";
-  if (!request) {
-    $("[data-appt-full]").innerHTML = emptyAppt;
-    $("[data-appt-mini]").innerHTML = emptyAppt;
-    return;
-  }
-  const rows = [["Help", request.type], ["Location", request.location], ["Preferred", request.when], request.notes && ["Notes", request.notes]].filter(Boolean);
-  $("[data-appt-full]").innerHTML = `<div class="request"><span class="badge badge-warning">${icon("i-clock")}Awaiting confirmation</span><h4>Request ${esc(request.ref)}</h4><dl class="appt-summary">${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl><button type="button" class="btn btn-sm" data-appt-cancel>${icon("i-close")}Cancel request</button></div>`;
-  $("[data-appt-mini]").innerHTML = `<div class="request"><span class="badge badge-warning">${icon("i-clock")}Awaiting confirmation</span><p><strong>${esc(request.ref)}</strong> · ${esc(request.when)}</p><p class="muted">${esc(request.location)}</p></div>`;
-}
-document.addEventListener("click", (e) => {
-  if (!e.target.closest("[data-appt-cancel]")) return;
-  const ref = request.ref;
-  request = null;
-  form.reset();
-  $("[data-notes-count]").textContent = "0";
-  renderRequest();
-  logActivity(`Appointment request ${ref} cancelled`, "i-close");
-  toast("Request cancelled.");
-});
-
-/* ---- Message advisor ------------------------------------------------------ */
-$("[data-message-form]").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const f = e.currentTarget;
-  const t = f.elements.text;
-  if (fieldError(t, t.value.trim().length < 10 ? "Please write at least 10 characters." : "")) { t.focus(); return; }
-  f.closest("dialog").close();
-  f.reset();
-  logActivity("Message sent to Daniel Reyes", "i-message");
-  toast("Message sent to your advisor.");
+  // No appointment service is connected, so the request cannot be submitted.
+  unavailable.hidden = false;
 });
 
 /* ---- Init ----------------------------------------------------------------- */
-renderUser();
-renderNotes();
 renderActivity();
 renderTrackers();
 renderDocs();
-renderRequest();
 showView(location.hash.slice(1), false);

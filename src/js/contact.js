@@ -43,6 +43,7 @@ function showSummary(errors) {
   const box = form.querySelector("[data-summary]");
   box.hidden = errors.length === 0;
   if (!errors.length) return;
+  box.querySelector("strong").textContent = errors[0].field?.tagName === "BUTTON" ? "Message not sent" : "Please check these fields:";
   box.querySelector("ul").replaceChildren(...errors.map(({ field, msg }) => {
     const li = document.createElement("li");
     const a = document.createElement("a");
@@ -53,7 +54,8 @@ function showSummary(errors) {
 }
 
 async function send(data) {
-  if (!FORM_ENDPOINT) { await new Promise((r) => setTimeout(r, 900)); return; }
+  // No message endpoint is configured yet, so the request cannot be delivered.
+  if (!FORM_ENDPOINT) throw new Error("no endpoint");
   const res = await fetch(FORM_ENDPOINT, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(data) });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }
@@ -106,7 +108,7 @@ function initForm() {
       ok.querySelector("[data-topic]").textContent = form.elements.topic.selectedOptions[0].textContent;
       form.hidden = true; ok.hidden = false; ok.querySelector("h3").focus();
     } catch {
-      showSummary([{ field: btn, msg: "Sorry, something went wrong sending your message. Please try again or email us directly." }]);
+      showSummary([{ field: btn, msg: "Sorry, we couldn't send your message right now. Please try again later." }]);
     } finally {
       btn.disabled = false; btn.removeAttribute("aria-busy"); btn.innerHTML = label;
     }

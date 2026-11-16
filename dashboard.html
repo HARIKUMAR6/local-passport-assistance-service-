@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard — Meridian Passage</title>
-  <meta name="description" content="Track your passport application progress and documents.">
+  <meta name="description" content="Your Meridian Passage client portal: application overview, documents and appointments.">
   <meta name="robots" content="noindex, nofollow">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
@@ -105,18 +105,14 @@
       <nav class="side-nav" aria-label="Dashboard sections">
         <a class="side-link" href="#overview" data-nav="overview"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg><span>Overview</span></a>
         <a class="side-link" href="#application" data-nav="application"><svg class="icon" aria-hidden="true"><use href="#i-file-check"/></svg><span>Application</span></a>
-        <a class="side-link" href="#documents" data-nav="documents"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><span>Documents</span><span class="side-badge" data-nav-badge="documents">3</span></a>
+        <a class="side-link" href="#documents" data-nav="documents"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><span>Documents</span><span class="side-badge" data-nav-badge="documents">6</span></a>
         <a class="side-link" href="#appointments" data-nav="appointments"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg><span>Appointments</span></a>
         <a class="side-link" href="#activity" data-nav="activity"><svg class="icon" aria-hidden="true"><use href="#i-activity"/></svg><span>Activity</span></a>
         <a class="side-link" href="#support" data-nav="support"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><span>Help &amp; support</span></a>
       </nav>
 
       <div class="side-foot">
-        <div class="advisor">
-          <span class="avatar avatar-sm" aria-hidden="true">DR</span>
-          <div><p class="advisor__name">Daniel Reyes</p><p class="advisor__role">Your advisor</p></div>
-          <button type="button" class="icon-btn" data-open="dlg-message" aria-label="Message your advisor"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg></button>
-        </div>
+        <a class="side-link" href="contact.html"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg><span>Contact us</span></a>
         <button type="button" class="side-link side-link--quiet" data-signout><svg class="icon" aria-hidden="true"><use href="#i-logout"/></svg><span>Sign out</span></button>
       </div>
     </aside>
@@ -132,11 +128,11 @@
         <div class="topbar__tools">
           <div class="pop-wrap">
             <button type="button" class="icon-btn" data-pop="pop-notify" aria-expanded="false" aria-controls="pop-notify" aria-label="Notifications">
-              <svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg><span class="dot-badge" data-notify-count>3</span>
+              <svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg>
             </button>
             <div class="pop pop--wide" id="pop-notify" hidden>
-              <div class="pop__head"><strong>Notifications</strong><button type="button" class="text-link" data-notify-read>Mark all read</button></div>
-              <ul class="notify" data-notify-list></ul>
+              <div class="pop__head"><strong>Notifications</strong></div>
+              <div class="empty empty--pad"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg><p><strong>No new notifications</strong></p></div>
             </div>
           </div>
           <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch theme">
@@ -146,13 +142,11 @@
           <button type="button" class="icon-btn icon-btn--text" data-dir-toggle aria-label="Switch layout direction"><span class="if-ltr">RTL</span><span class="if-rtl">LTR</span></button>
           <div class="pop-wrap">
             <button type="button" class="profile-btn" data-pop="pop-profile" aria-expanded="false" aria-controls="pop-profile" aria-label="Account menu">
-              <span class="avatar avatar-sm" data-avatar aria-hidden="true">AH</span>
-              <span class="profile-btn__name" data-user-name>Amelia Hart</span>
+              <span class="avatar avatar-sm" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span>
+              <span class="profile-btn__name">My account</span>
               <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
             </button>
             <div class="pop" id="pop-profile" hidden>
-              <div class="pop__head pop__head--stack"><strong data-user-name>Amelia Hart</strong><span data-user-email>amelia.hart@example.com</span></div>
-              <button type="button" class="pop__item" data-open="dlg-profile"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg>Edit profile</button>
               <button type="button" class="pop__item" data-signout><svg class="icon" aria-hidden="true"><use href="#i-logout"/></svg>Sign out</button>
             </div>
           </div>
@@ -164,53 +158,49 @@
         <section class="view" data-view="overview" aria-label="Overview">
           <div class="view-head">
             <div>
-              <h2><span data-greeting>Welcome</span>, <span data-user-first>Amelia</span></h2>
-              <p>Here is where your passport renewal stands today.</p>
+              <h2 data-greeting>Welcome</h2>
+              <p>An overview of your passport application.</p>
             </div>
             <div class="view-actions">
-              <button type="button" class="btn btn-sm" data-go-view="appointments"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Request help</button>
-              <button type="button" class="btn btn-sm btn-primary" data-go-view="documents"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>Upload document</button>
+              <button type="button" class="btn btn-sm" data-go-view="appointments"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Request appointment help</button>
+              <button type="button" class="btn btn-sm btn-primary" data-go-view="documents"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>Add document</button>
             </div>
           </div>
 
           <div class="kpis">
-            <div class="kpi"><span class="kpi__icon"><svg class="icon" aria-hidden="true"><use href="#i-file-check"/></svg></span><div><p class="kpi__label">Status</p><p class="kpi__value">In review</p></div></div>
-            <div class="kpi"><span class="kpi__icon"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span><div><p class="kpi__label">Documents</p><p class="kpi__value"><span data-doc-count>3</span>/<span data-doc-total>6</span> ready</p></div></div>
-            <div class="kpi"><span class="kpi__icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></span><div><p class="kpi__label">Appointment</p><p class="kpi__value" data-appt-value>Not requested</p></div></div>
-            <div class="kpi"><span class="kpi__icon"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span><div><p class="kpi__label">Est. completion</p><p class="kpi__value">Dec 12, 2026</p></div></div>
+            <div class="kpi"><span class="kpi__icon"><svg class="icon" aria-hidden="true"><use href="#i-file-check"/></svg></span><div><p class="kpi__label">Application</p><p class="kpi__value">None yet</p></div></div>
+            <div class="kpi"><span class="kpi__icon"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span><div><p class="kpi__label">Documents</p><p class="kpi__value"><span data-doc-count>0</span>/<span data-doc-total>6</span> added</p></div></div>
+            <div class="kpi"><span class="kpi__icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></span><div><p class="kpi__label">Appointment</p><p class="kpi__value">None scheduled</p></div></div>
+            <div class="kpi"><span class="kpi__icon"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg></span><div><p class="kpi__label">Next step</p><p class="kpi__value">Consultation</p></div></div>
           </div>
 
           <div class="grid-main">
             <section class="panel panel--span" aria-labelledby="p-status">
-              <header class="panel__head"><h3 id="p-status">Passport application</h3><span class="badge badge-info"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Advisor check</span></header>
+              <header class="panel__head"><h3 id="p-status">Passport application</h3></header>
               <div class="panel__body">
-                <div class="app-summary">
-                  <div class="app-summary__thumb photo"><img src="public/assets/photos/dash-travel.jpg" alt="A navy passport being placed into a travel bag" width="900" height="600"></div>
-                  <dl class="app-summary__meta">
-                    <div><dt>Service</dt><dd>Adult passport renewal</dd></div>
-                    <div><dt>Reference</dt><dd>MP-RN-20418</dd></div>
-                    <div><dt>Submitted</dt><dd>Nov 3, 2026</dd></div>
-                    <div><dt>Advisor</dt><dd>Daniel Reyes</dd></div>
-                  </dl>
+                <div class="empty empty--row">
+                  <svg class="icon" aria-hidden="true"><use href="#i-file-check"/></svg>
+                  <div>
+                    <p><strong>No active application</strong></p>
+                    <p>When your application begins, its progress will appear here.</p>
+                    <div class="request__actions"><a class="btn btn-sm btn-primary" href="contact.html">Request a consultation</a><a class="btn btn-sm" href="services.html">View services</a></div>
+                  </div>
                 </div>
-                <div class="progress-row"><div class="progress" role="progressbar" aria-label="Application progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" data-progress-bar><span style="inline-size:50%"></span></div><strong data-progress-pct>50%</strong></div>
-                <ol class="stepper" data-tracker="compact" aria-label="Application steps"></ol>
+                <ol class="stepper" data-tracker="compact" aria-label="Our process"></ol>
               </div>
-              <footer class="panel__foot"><button type="button" class="text-link" data-go-view="application">View application details</button></footer>
+              <footer class="panel__foot"><button type="button" class="text-link" data-go-view="application">How the process works</button></footer>
             </section>
 
             <section class="panel" aria-labelledby="p-docs">
-              <header class="panel__head"><h3 id="p-docs">Outstanding documents</h3><span class="muted" data-doc-note>3 still needed</span></header>
+              <header class="panel__head"><h3 id="p-docs">Required documents</h3><span class="muted" data-doc-note>6 to add</span></header>
               <div class="panel__body panel__body--flush"><ul class="mini-list" data-doc-mini></ul></div>
-              <footer class="panel__foot"><button type="button" class="text-link" data-go-view="documents">Manage all documents</button></footer>
+              <footer class="panel__foot"><button type="button" class="text-link" data-go-view="documents">Manage documents</button></footer>
             </section>
 
             <section class="panel" aria-labelledby="p-appt">
-              <header class="panel__head"><h3 id="p-appt">Appointment assistance</h3></header>
-              <div class="panel__body">
-                <div data-appt-mini></div>
-              </div>
-              <footer class="panel__foot"><button type="button" class="text-link" data-go-view="appointments">Open appointments</button></footer>
+              <header class="panel__head"><h3 id="p-appt">Appointments</h3></header>
+              <div class="panel__body"><div class="empty"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg><p><strong>No appointments scheduled</strong></p><p>Ask for help finding and preparing for an appointment.</p></div></div>
+              <footer class="panel__foot"><button type="button" class="text-link" data-go-view="appointments">Request appointment help</button></footer>
             </section>
 
             <section class="panel panel--span" aria-labelledby="p-recent">
@@ -223,48 +213,34 @@
 
         <!-- ============ Application ============ -->
         <section class="view" data-view="application" aria-label="Application" hidden>
-          <div class="view-head"><div><h2>Passport application</h2><p>Follow each stage of your renewal. Select a step for details.</p></div></div>
-          <section class="panel" aria-label="Application progress">
+          <div class="view-head"><div><h2>Passport application</h2><p>The stages of a passport application with Meridian Passage. Select a step for details.</p></div></div>
+          <section class="panel" aria-label="Application stages">
             <div class="panel__body">
-              <div class="progress-row"><div class="progress" aria-hidden="true"><span data-progress-fill style="inline-size:50%"></span></div><strong data-progress-pct>50%</strong></div>
-              <ol class="stepper" data-tracker="full" aria-label="Application steps"></ol>
+              <ol class="stepper" data-tracker="full" aria-label="Application stages"></ol>
               <div class="step-detail" data-step-detail aria-live="polite"></div>
             </div>
           </section>
-          <section class="panel" aria-label="Application details">
-            <header class="panel__head"><h3>Application details</h3></header>
-            <div class="panel__body">
-              <dl class="detail-grid">
-                <div><dt>Applicant</dt><dd data-user-name>Amelia Hart</dd></div>
-                <div><dt>Client ID</dt><dd>MP-20418</dd></div>
-                <div><dt>Service</dt><dd>Adult passport renewal (10-year)</dd></div>
-                <div><dt>Reference</dt><dd>MP-RN-20418</dd></div>
-                <div><dt>Submitted</dt><dd>Nov 3, 2026</dd></div>
-                <div><dt>Estimated completion</dt><dd>Dec 12, 2026</dd></div>
-                <div><dt>Phone</dt><dd dir="ltr" data-user-phone>+1 (555) 014-3382</dd></div>
-                <div><dt>Advisor</dt><dd>Daniel Reyes</dd></div>
-              </dl>
-            </div>
-            <footer class="panel__foot"><button type="button" class="btn btn-sm" data-open="dlg-profile"><svg class="icon" aria-hidden="true"><use href="#i-edit"/></svg>Edit profile details</button></footer>
+          <section class="panel" aria-label="Active application">
+            <div class="panel__body"><div class="empty empty--row"><svg class="icon" aria-hidden="true"><use href="#i-file-check"/></svg><div><p><strong>No active application</strong></p><p>Request a consultation to begin.</p><div class="request__actions"><a class="btn btn-sm btn-primary" href="contact.html">Request a consultation</a></div></div></div></div>
           </section>
         </section>
 
         <!-- ============ Documents ============ -->
         <section class="view" data-view="documents" aria-label="Documents" hidden>
-          <div class="view-head"><div><h2>Documents</h2><p>JPG, PNG or PDF, up to 5 MB each. Files are previewed in your browser only.</p></div></div>
+          <div class="view-head"><div><h2>Documents</h2><p>JPG, PNG or PDF, up to 5 MB each.</p></div></div>
           <div class="grid-docs">
             <section class="panel" aria-label="Document checklist">
-              <header class="panel__head"><h3>Checklist</h3><span class="muted"><span data-doc-count>3</span> of <span data-doc-total>6</span> ready</span></header>
+              <header class="panel__head"><h3>Checklist</h3><span class="muted"><span data-doc-count>0</span> of <span data-doc-total>6</span> added</span></header>
               <ul class="doc-list" data-doc-list></ul>
               <input type="file" class="sr-only" data-file-input accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" tabindex="-1" aria-hidden="true">
             </section>
-            <section class="panel preview-panel" aria-label="Upload preview">
-              <header class="panel__head"><h3>Upload preview</h3></header>
+            <section class="panel preview-panel" aria-label="File preview">
+              <header class="panel__head"><h3>Preview</h3></header>
               <div class="panel__body preview-body">
                 <div class="preview-empty" data-preview-empty>
                   <svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>
                   <p><strong>No file selected</strong></p>
-                  <p>Choose a file for an outstanding document, or drop one onto its row.</p>
+                  <p>Choose a file for a required document, or drop one onto its row.</p>
                 </div>
                 <div class="preview-filled" data-preview-filled hidden>
                   <div class="preview-thumb" data-preview-thumb></div>
@@ -282,12 +258,13 @@
 
         <!-- ============ Appointments ============ -->
         <section class="view" data-view="appointments" aria-label="Appointments" hidden>
-          <div class="view-head"><div><h2>Appointments</h2><p>Ask an advisor to help you secure and prepare for an appointment. Requests are confirmed by your advisor.</p></div></div>
+          <div class="view-head"><div><h2>Appointments</h2><p>Ask for help finding and preparing for your passport appointment.</p></div></div>
           <div class="grid-appt">
             <form class="panel appt-form" data-appt-form novalidate aria-label="Appointment assistance request">
-              <header class="panel__head"><h3>New request</h3></header>
+              <header class="panel__head"><h3>Request appointment help</h3></header>
               <div class="panel__body form-stack">
                 <div class="form-summary" data-appt-summary role="alert" hidden><strong>Please check these fields:</strong><ul></ul></div>
+                <p class="form-summary" data-appt-unavailable role="alert" hidden>We couldn't submit your request right now. Please try again later.</p>
                 <div class="form-grid is-2">
                   <div class="field">
                     <label class="label" for="ap-type">Type of help</label>
@@ -304,9 +281,9 @@
                     <label class="label" for="ap-location">Preferred location</label>
                     <select class="input" id="ap-location" name="location" aria-required="true" aria-describedby="ap-location-error">
                       <option value="">Choose a location</option>
-                      <option>Northgate City Passport Office</option>
-                      <option>Riverside Acceptance Facility</option>
-                      <option>Central Library Service Desk</option>
+                      <option>The passport office nearest to me</option>
+                      <option>A central city office</option>
+                      <option>No preference, please advise</option>
                     </select>
                     <p class="error-text" id="ap-location-error"></p>
                   </div>
@@ -327,7 +304,7 @@
                   </fieldset>
                 </div>
                 <div class="field">
-                  <label class="label" for="ap-notes">Notes for your advisor <span class="hint">(optional)</span></label>
+                  <label class="label" for="ap-notes">Notes <span class="hint">(optional)</span></label>
                   <textarea class="input" id="ap-notes" name="notes" rows="3" maxlength="400" aria-describedby="ap-notes-count"></textarea>
                   <p class="hint" id="ap-notes-count"><span data-notes-count>0</span>/400</p>
                 </div>
@@ -335,66 +312,42 @@
               <footer class="panel__foot panel__foot--end"><button type="submit" class="btn btn-primary" data-appt-submit><span class="btn__label">Send request</span><span class="spinner" aria-hidden="true"></span></button></footer>
             </form>
 
-            <section class="panel" aria-label="Request status" aria-live="polite">
-              <header class="panel__head"><h3>Request status</h3></header>
-              <div class="panel__body"><div data-appt-full></div></div>
+            <section class="panel" aria-label="Your appointments">
+              <header class="panel__head"><h3>Your appointments</h3></header>
+              <div class="panel__body"><div class="empty"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg><p><strong>No appointments scheduled</strong></p><p>Appointments arranged for you will appear here.</p></div></div>
             </section>
           </div>
         </section>
 
         <!-- ============ Activity ============ -->
         <section class="view" data-view="activity" aria-label="Activity" hidden>
-          <div class="view-head"><div><h2>Activity</h2><p>Everything that has happened on your file.</p></div></div>
+          <div class="view-head"><div><h2>Activity</h2><p>Updates on your passport application.</p></div></div>
           <section class="panel" aria-label="Activity log"><div class="panel__body"><ol class="activity" data-activity></ol></div></section>
         </section>
 
         <!-- ============ Support ============ -->
         <section class="view" data-view="support" aria-label="Help and support" hidden>
-          <div class="view-head"><div><h2>Help &amp; support</h2><p>Your advisor and our team are here to help.</p></div></div>
+          <div class="view-head"><div><h2>Help &amp; support</h2><p>Guidance on documents, services and your passport application.</p></div></div>
           <div class="grid-support">
             <section class="panel" aria-label="Support options">
               <ul class="support-list">
-                <li><button type="button" data-open="dlg-message"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg><span><strong>Message your advisor</strong><small>Replies within one business day</small></span><svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></button></li>
-                <li><a href="documents-checklist.html"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg><span><strong>Documents checklist guide</strong><small>See what each application needs</small></span><svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+                <li><a href="documents-checklist.html"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg><span><strong>Documents checklist</strong><small>See what each application needs</small></span><svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
                 <li><a href="services.html"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg><span><strong>Our services</strong><small>Renewals, replacements and more</small></span><svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-                <li><a href="contact.html"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span><strong>Contact us</strong><small>Send us a message or visit</small></span><svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-                <li><a href="tel:+15550142290"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span><strong>Call support</strong><small dir="ltr">+1 (555) 014-2290</small></span><svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+                <li><a href="contact.html"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><span><strong>Contact us</strong><small>Ask a question about your passport</small></span><svg class="icon icon-go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
               </ul>
             </section>
-            <section class="panel support-photo-panel" aria-label="Advisor support">
+            <section class="panel support-photo-panel" aria-label="Help with forms">
               <div class="support-photo photo"><img src="public/assets/photos/dash-appt.jpg" alt="A client at a desk reviewing paperwork on her laptop" width="900" height="600" loading="lazy"></div>
-              <div class="panel__body"><p><strong>Stuck on a form?</strong></p><p class="muted">Tell your advisor which step is unclear and they will walk you through it.</p></div>
+              <div class="panel__body"><p><strong>Need help with a form?</strong></p><p class="muted">Tell us which step is unclear and a consultant can guide you through it.</p></div>
             </section>
           </div>
         </section>
       </main>
     </div>
 
-    <!-- Dialogs -->
     <dialog class="dlg" id="dlg-preview" aria-labelledby="dlg-preview-title">
       <div class="dlg__head"><h2 id="dlg-preview-title">File preview</h2><button type="button" class="icon-btn" data-close aria-label="Close"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
       <div class="dlg__body" data-dlg-preview></div>
-    </dialog>
-
-    <dialog class="dlg" id="dlg-profile" aria-labelledby="dlg-profile-title">
-      <form method="dialog" data-profile-form novalidate>
-        <div class="dlg__head"><h2 id="dlg-profile-title">Edit profile</h2><button type="button" class="icon-btn" data-close aria-label="Close"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
-        <div class="dlg__body form-grid">
-          <div class="field"><label class="label" for="pf-name">Full name</label><input class="input" id="pf-name" name="name" autocomplete="name" aria-describedby="pf-name-error"><p class="error-text" id="pf-name-error"></p></div>
-          <div class="field"><label class="label" for="pf-phone">Phone</label><input class="input" id="pf-phone" name="phone" type="tel" autocomplete="tel" aria-describedby="pf-phone-error"><p class="error-text" id="pf-phone-error"></p></div>
-        </div>
-        <div class="dlg__foot"><button type="button" class="btn" data-close>Cancel</button><button type="submit" class="btn btn-primary">Save changes</button></div>
-      </form>
-    </dialog>
-
-    <dialog class="dlg" id="dlg-message" aria-labelledby="dlg-message-title">
-      <form method="dialog" data-message-form novalidate>
-        <div class="dlg__head"><h2 id="dlg-message-title">Message your advisor</h2><button type="button" class="icon-btn" data-close aria-label="Close"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
-        <div class="dlg__body form-grid">
-          <div class="field"><label class="label" for="msg-text">Your message</label><textarea class="input" id="msg-text" name="text" rows="5" maxlength="600" aria-describedby="msg-text-error"></textarea><p class="error-text" id="msg-text-error"></p></div>
-        </div>
-        <div class="dlg__foot"><button type="button" class="btn" data-close>Cancel</button><button type="submit" class="btn btn-primary"><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Send message</button></div>
-      </form>
     </dialog>
 
     <div class="toasts" data-toasts aria-live="polite" aria-atomic="false"></div>

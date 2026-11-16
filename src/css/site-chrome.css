@@ -343,3 +343,9 @@
   }
   .site-footer :focus-visible { outline-color: var(--color-gold-300); }
 }
+
+/* Footer social icons: decorative, not links */
+@layer components {
+  .social-list { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .social--icon { cursor: default; }
+}

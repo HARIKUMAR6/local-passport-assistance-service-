@@ -139,11 +139,9 @@
         <div class="max-w-xl text-center md:ltr:text-left md:rtl:text-right">
           <p class="eyebrow hidden text-gold-300 sm:inline-flex">Contact Us</p>
           <h1 class="text-[1.875rem] text-white sm:mt-4 sm:text-h1" id="contact-title">Let's talk about your passport.</h1>
-          <p class="mx-auto mt-3 max-w-md text-base text-paper-200 sm:mt-5 sm:text-lg md:mx-0">Speak with a consultant. We reply within one business day.</p>
+          <p class="mx-auto mt-3 max-w-md text-base text-paper-200 sm:mt-5 sm:text-lg md:mx-0">Tell us about your passport application and what you need help with.</p>
           <div class="cta-row mt-6 sm:mt-7">
-            <a class="btn btn-accent btn-lg" href="tel:+15550142290">Call us</a>
-            <a class="btn btn-lg border-white/40 bg-transparent text-white hover:bg-white/10" href="mailto:hello@meridianpassage.example">Email us</a>
-            <a class="btn btn-lg border-white/40 bg-transparent text-white hover:bg-white/10" href="#form">Send a message</a>
+            <a class="btn btn-accent btn-lg" href="#form">Write a message</a>
           </div>
         </div>
       </div>
@@ -160,13 +158,12 @@
             <div class="section-head mb-6">
               <p class="eyebrow">Contact Information</p>
               <h2 id="info-title">Reach us your way.</h2>
-              <p class="lead">Call, write or visit. A real person will answer.</p>
+              <p class="lead">Tell us what you need help with and we will point you in the right direction.</p>
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
-              <div class="info-card reveal"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><h3>Phone</h3><a href="tel:+15550142290"><span dir="ltr">+1 (555) 014-2290</span></a><button type="button" class="copy-btn" data-copy="+1 (555) 014-2290" data-what="Phone number"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span data-label>Copy</span></button></div>
-              <div class="info-card reveal" style="--reveal-delay:240ms"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg><h3>Office hours</h3><p class="font-semibold">Monday to Friday<br>9:00 to 17:30</p><p class="text-sm text-ink-muted">Saturday by appointment</p></div>
-              <div class="info-card reveal sm:col-span-2" style="--reveal-delay:80ms"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><h3>Email</h3><a href="mailto:hello@meridianpassage.example">hello@meridianpassage.example</a><button type="button" class="copy-btn" data-copy="hello@meridianpassage.example" data-what="Email address"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span data-label>Copy</span></button></div>
-              <div class="info-card reveal sm:col-span-2" style="--reveal-delay:160ms"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg><h3>Office</h3><address>48 Meridian Square, Floor 6<br>Northgate City 50210</address><a class="link-arrow mt-1 text-sm" href="#location">View on map <svg class="icon icon-flip" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+              <div class="info-card reveal"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><h3>Message us</h3><a href="#form">Use the form below</a></div>
+              <div class="info-card reveal" style="--reveal-delay:80ms"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg><h3>Documents</h3><a href="documents-checklist.html">Documents checklist</a></div>
+                            <div class="info-card reveal sm:col-span-2" style="--reveal-delay:160ms"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg><h3>Services</h3><a href="services.html">See how we can help</a></div>
             </div>
             <p class="sr-only" role="status" aria-live="polite" data-copy-live></p>
           </div>
@@ -226,7 +223,7 @@
             <div class="form-success" data-success hidden>
               <span class="form-success__tick"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
               <h3 class="text-h3" tabindex="-1">Thank you, <span data-name></span>.</h3>
-              <p class="text-ink-muted">We have received your request about <strong data-topic></strong>. A consultant will reply within one business day.</p>
+              <p class="text-ink-muted">We have received your request about <strong data-topic></strong>.</p>
               <button type="button" class="btn" data-another>Send another message</button>
             </div>
           </div>
@@ -237,9 +234,9 @@
             <div class="card reveal" style="--reveal-delay:100ms">
               <h3 class="text-xl">What happens next</h3>
               <ol class="num-list mt-3">
-                <li><span class="num-list__n" aria-hidden="true">1</span><p class="text-sm text-ink-muted">A consultant reads your message the same business day.</p></li>
-                <li><span class="num-list__n" aria-hidden="true">2</span><p class="text-sm text-ink-muted">You get a reply within one business day.</p></li>
-                <li><span class="num-list__n" aria-hidden="true">3</span><p class="text-sm text-ink-muted">We book your free consultation.</p></li>
+                <li><span class="num-list__n" aria-hidden="true">1</span><p class="text-sm text-ink-muted">Tell us about your situation.</p></li>
+                <li><span class="num-list__n" aria-hidden="true">2</span><p class="text-sm text-ink-muted">A consultant reviews your request.</p></li>
+                <li><span class="num-list__n" aria-hidden="true">3</span><p class="text-sm text-ink-muted">We recommend your next steps.</p></li>
               </ol>
             </div>
           </div>
@@ -275,36 +272,6 @@
       </div>
     </section>
 
-    <!-- 5 · Office Location -->
-    <section class="section is-alt" id="location" aria-labelledby="location-title">
-      <div class="container-page is-wide">
-        <div class="section-head is-center">
-          <p class="eyebrow">Office Location</p>
-          <h2 id="location-title">Visit us in Northgate City.</h2>
-          <p class="lead">Walk-ins are welcome, but an appointment guarantees a consultant's full attention.</p>
-        </div>
-        <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-          <div class="map-frame reveal min-h-[22rem] lg:min-h-[32rem]" data-lat="47.7079" data-lon="-122.3241">
-            <iframe title="Map showing the Meridian Passage office location" src="https://www.openstreetmap.org/export/embed.html?bbox=-122.3301%2C47.7044%2C-122.3181%2C47.7114&amp;layer=mapnik&amp;marker=47.7079%2C-122.3241" loading="lazy" referrerpolicy="no-referrer"></iframe>
-          </div>
-          <div class="grid content-start gap-6">
-            <figure class="photo reveal aspect-[16/10]">
-              <img class="object-[center_30%]" src="public/assets/photos/contact-office.jpg" width="1000" height="1500" alt="Glass entrance of a modern office building" loading="lazy">
-            </figure>
-            <div class="card reveal" style="--reveal-delay:100ms">
-              <h3 class="text-xl">Meridian Passage</h3>
-              <address class="mt-2 text-ink-muted not-italic">48 Meridian Square, Floor 6<br>Northgate City 50210</address>
-              <p class="mt-2 text-sm text-ink-muted">Monday to Friday, 9:00 to 17:30</p>
-              <div class="cta-row mt-5">
-                <a class="btn btn-primary" href="https://www.openstreetmap.org/directions?to=47.7079%2C-122.3241" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-navigate"/></svg>Get directions</a>
-                <a class="btn" href="https://www.openstreetmap.org/?mlat=47.7079&amp;mlon=-122.3241#map=17/47.7079/-122.3241" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Open larger map</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- 6 · Final CTA -->
     <section class="section" id="get-started" aria-labelledby="cta-title">
       <div class="container-page is-wide">
@@ -312,9 +279,9 @@
           <div class="on-dark relative z-10 order-2 flex flex-col justify-center gap-5 p-8 text-center sm:p-12 lg:order-1 lg:p-16 lg:ltr:text-left lg:rtl:text-right">
             <p class="eyebrow">Get Started</p>
             <h2 id="cta-title">Your passport journey starts with a conversation.</h2>
-            <p class="lead mx-auto lg:mx-0">Call us, or sign in to continue an existing application.</p>
+            <p class="lead mx-auto lg:mx-0">Tell us what you need, or sign in to your client portal.</p>
             <div class="cta-row">
-              <a class="btn btn-accent btn-lg" href="tel:+15550142290">Call us</a>
+              <a class="btn btn-accent btn-lg" href="#form">Write a message</a>
               <a class="btn btn-lg border-white/40 bg-transparent text-white hover:bg-white/10" href="login.html">Client login</a>
             </div>
           </div>
@@ -341,11 +308,11 @@
         <p class="max-w-sm text-sm text-paper-300">
           Calm, expert guidance for passport applications, renewals and document preparation, so every step feels clear and every submission is ready.
         </p>
-        <ul class="flex gap-3" aria-label="Social media">
-          <li><a class="social" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
-          <li><a class="social" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
-          <li><a class="social" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
-          <li><a class="social" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg class="icon" aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
+        <ul class="social-list" aria-label="Social media">
+          <li><span class="social social--icon" role="img" aria-label="Facebook"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg></span></li>
+          <li><span class="social social--icon" role="img" aria-label="Instagram"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span></li>
+          <li><span class="social social--icon" role="img" aria-label="LinkedIn"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></span></li>
+          <li><span class="social social--icon" role="img" aria-label="YouTube"><svg class="icon" aria-hidden="true"><use href="#i-youtube"/></svg></span></li>
         </ul>
       </div>
 
@@ -375,19 +342,10 @@
 
       <div>
         <h2 class="footer-heading">Contact</h2>
-        <ul class="footer-list footer-contact">
-          <li>
-            <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
-            <address class="not-italic">48 Meridian Square, Floor 6<br>Northgate City 50210</address>
-          </li>
-          <li>
-            <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
-            <a class="footer-link" href="tel:+15550142290"><span dir="ltr" class="inline-block">+1 (555) 014-2290</span></a>
-          </li>
-          <li>
-            <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
-            <a class="footer-link" href="mailto:hello@meridianpassage.example">hello@meridianpassage.example</a>
-          </li>
+        <ul class="footer-list">
+          <li><a class="footer-link" href="contact.html">Send us a message</a></li>
+          <li><a class="footer-link" href="documents-checklist.html">Documents checklist</a></li>
+          <li><a class="footer-link" href="services.html">Our services</a></li>
         </ul>
       </div>
     </div>
@@ -395,7 +353,7 @@
     <hr class="divider-perforated">
     <div class="flex flex-col gap-2 py-6 text-xs text-paper-300 sm:flex-row sm:items-center sm:justify-between">
       <p>&copy; 2026 Meridian Passage. All rights reserved.</p>
-      <p>Independent consultancy, not affiliated with any government agency.</p>
+      <p class="max-w-xl sm:text-end">Meridian Passage is an independent passport assistance service and is not a government agency.</p>
     </div>
   </div>
 </footer>
