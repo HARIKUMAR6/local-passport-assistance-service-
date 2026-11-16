@@ -416,3 +416,10 @@
   .continue-to__opt:hover { background: var(--surface-2); border-color: var(--ink-muted); }
   .auth .or-rule { margin-block: 1.25rem; }
 }
+
+@layer components {
+  @media (min-width: 75rem) {
+    .grid-main { grid-template-areas: "s d" "a a"; }
+    .grid-main > :nth-child(3) { grid-area: a; }
+  }
+}
